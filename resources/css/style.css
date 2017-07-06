@@ -1,0 +1,51 @@
+/*common*/
+html, body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+}
+h1, h2, h3, h4, h5, h6{
+    margin: 10px 0px;
+    padding: 0px;
+}
+ol, ul{
+    margin: 10px 0px;
+    padding: 0px;
+    list-style: none;
+}
+/*end of common*/
+/*page*/
+.page{
+    margin: 0px auto;
+    width: 1024px;
+}
+.page > div{
+    border: solid 1px red;
+}
+.page .header{
+    height: 100px;
+}
+.page .content{}
+.page .footer{
+    height: 100px;
+    bottom: 0px;
+}
+/*end of page*/
+
+/*logo*/
+.logo{
+    width: 100px;
+}
+.logo .icon-logo{
+    background-image: url(../images/logo.png);
+    width:37px;
+    height: 36px;
+    background-position: 50% 50%;
+    margin: auto auto;
+    display: table;
+}
+.logo .text{
+    font-size: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/*end of logo*/
