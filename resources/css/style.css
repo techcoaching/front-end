@@ -5,7 +5,7 @@ html, body{
     font-size: 16px;
 }
 h1, h2, h3, h4, h5, h6{
-    margin: 10px 0px;
+    margin: 0px 0px;
     padding: 0px;
 }
 ol, ul{
@@ -13,8 +13,14 @@ ol, ul{
     padding: 0px;
     list-style: none;
 }
+a{
+    text-decoration: none;
+}
 a:hover{
-    text-decoration: underline!important;
+    text-decoration: underline;
+}
+p{
+    margin: 0px;
 }
 /*end of common*/
 /*page*/
@@ -76,7 +82,7 @@ a:hover{
     display: table;
 }
 .slide-main .previous .icon-previous::before{
-    content:'\003E';
+    content:'\003C';
     color: white;
     padding-top: 15px;
     font-size: 45px;
@@ -105,11 +111,46 @@ a:hover{
 .slide-main .item{
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: row;
 }
 .slide-main .item .photo{
     margin-left: 135px;
     margin-top:22px;
     max-width: 270px;
     max-height: 320px;
+}
+.slide-main .item .summary{
+    flex: 1;
+    margin-top: 100px;
+    margin-left: 100px;
+}
+.slide-main .item .summary .title{
+    color: white;
+    font-size: 20px;
+    font-weight: normal;
+
+}
+.slide-main .item .summary .desc{
+    margin: 10px 0px;
+    color: white;
+    font-size: 12px;
+}
+.slide-main .item .summary .button-signupnow{
+    background-color: #4F94F1;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    position: absolute;
+    top: 210px;
+}
+.slide-main .item .summary .button-signupnow .icon-check{
+    background-image: url(../images/icon-check.png);
+    width: 19px;
+    height: 18px;
+    display: inline-flex;
+}
+.slide-main .item .summary .button-signupnow .text{
+    padding-left:8px; 
 }
 /*end of slide-main*/
