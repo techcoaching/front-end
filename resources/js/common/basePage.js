@@ -1,9 +1,10 @@
 class BasePage {
-    constructor(renderTo = 'body') {
+    constructor(renderTo = 'body', templateUrl = "") {
         this.title = "just sample page";
         this.renderTo = renderTo;
         this.renderMode = RenderMode.Append;
         this.controls = [];
+        this.templateUrl = templateUrl;
         this.init();
     }
     init() {
@@ -12,19 +13,27 @@ class BasePage {
         this.controls.push(control);
     }
     render() {
-        var html = this.getHtml();
-        this.dom=$(html);
+        var self = this;
+        this.getHtml(this.templateUrl).then(function (html) {
+            self.onHtmlReady(html);
+        });
+    }
+    onHtmlReady(html) {
+        this.dom = $(html);
         domHelper.append(this.renderTo, this.dom);
         this.controls.forEach((item) => {
             item.render();
         });
         this.onRenderCompleted();
     }
-    onRenderCompleted(){}
-    bindEvent(selector, eventName, handler){
+    getHtml(templateUrl){
+        return httpConnector.get(templateUrl);
+    }
+    onRenderCompleted() { }
+    bindEvent(selector, eventName, handler) {
         $(this.dom).find(selector).bind(eventName, handler);
     }
-    getElement(selector){
+    getElement(selector) {
         return this.dom.find(selector);
     }
 }
