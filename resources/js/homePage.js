@@ -1,6 +1,6 @@
 class HomePage extends BasePage {
     constructor() {
-        super("body", "/resources/template/homepage.html");
+        super("body", "");
     }
     init() {
         var slideData = [
@@ -20,5 +20,3 @@ class HomePage extends BasePage {
     //     </div>`;
     // }
 }
-var homePage = new HomePage();
-homePage.render();

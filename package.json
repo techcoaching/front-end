@@ -1,0 +1,28 @@
+{
+  "name": "front-end",
+  "version": "1.0.0",
+  "description": "convert: http://www.evotech.net/articles/testjsentities.html",
+  "main": "system.conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"npm run tsc",
+    "tsc":"tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://techcoaching:2e634346878267ce129f3a5682db5ef2a29c454e@github.com/techcoaching/front-end.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/techcoaching/front-end/issues"
+  },
+  "homepage": "https://github.com/techcoaching/front-end#readme",
+  "dependencies": {
+    "core-js": "^2.4.1",
+    "reflect-metadata": "^0.1.10",
+    "systemjs": "^0.20.15",
+    "typescript": "^2.4.1",
+    "zone.js": "^0.8.13"
+  }
+}

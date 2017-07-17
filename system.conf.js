@@ -1,0 +1,15 @@
+System.config({
+    defaultJSExtension:"true",
+    baseUrl:".",
+    "paths":{
+        "@reflect":["node_modules/reflect-metadata/reflect.js"]
+    },
+    packages:{
+        "@reflect":{
+            defaultExtension:"js"
+        },
+        src:{
+            defaultExtension:"js"
+        }
+    }
+});

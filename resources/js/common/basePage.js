@@ -4,7 +4,9 @@ class BasePage {
         this.renderTo = renderTo;
         this.renderMode = RenderMode.Append;
         this.controls = [];
-        this.templateUrl = templateUrl;
+        if (templateUrl != "") {
+            this.templateUrl = templateUrl;
+        }
         this.init();
     }
     init() {
@@ -26,7 +28,7 @@ class BasePage {
         });
         this.onRenderCompleted();
     }
-    getHtml(templateUrl){
+    getHtml(templateUrl) {
         return httpConnector.get(templateUrl);
     }
     onRenderCompleted() { }

@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "es5",
+        "module": "system",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": true,
+        "paths": {
+            "@reflect":["node_modules/reflect-metadata/reflect.js"]
+        }
+    },
+    "include": [
+        "src/**/*.*"
+    ],
+    "exclude": [
+        "node_modules",
+        "typings"
+    ]
+}
