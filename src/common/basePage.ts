@@ -4,9 +4,11 @@ import { ConnectorFactory } from "../common/connector";
 import { IConnector } from "../common/iconnector";
 import { Const } from "../common/const";
 import htmlHelper from "../common/helpers/compileHelper";
+import { Events, Event } from "./event";
 
 export class BasePage<TModel> {
-    protected model: TModel = null;
+    public model: any;
+    public tempObj:any={name:"test"};
     public title: string = "";
     public renderTo: string = "body";
     public controls: Array<any> = [];
@@ -18,6 +20,13 @@ export class BasePage<TModel> {
         this.renderTo = renderTo;
         this.connector = ConnectorFactory.create();
         this.init();
+    }
+    public getModel(): any {
+        return this.model;
+    }
+    public get events(): Events {
+        let meta = window.Reflect.getMetadata(Const.DecoratorKey, this.constructor) || {};
+        return meta["events"] || new Events();
     }
     public get templateUrl(): string {
         let meta = window.Reflect.getMetadata(Const.DecoratorKey, this.constructor) || {};
@@ -48,6 +57,16 @@ export class BasePage<TModel> {
             item.render(item.renderTo);
         });
         this.onRendered();
+        this.bindEvents();
+    }
+    private bindEvents() {
+        let events: Array<Event> = this.events.getEvents();
+        let self = this;
+
+        console.log("registered events:", events);
+        events.forEach((event: Event) => {
+            self.bindEvent(event.selector, event.name, event.handler);
+        });
     }
     private compileHtml() {
         this.html = htmlHelper.compile(this.html, this.model);

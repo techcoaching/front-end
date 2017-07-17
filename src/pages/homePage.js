@@ -1,4 +1,4 @@
-System.register(["../common/basePage", "../common/decorator", "./components/logo"], function (exports_1, context_1) {
+System.register(["../common/basePage", "../common/decorator", "./components/logo", "./components/mainSlider"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = Object.setPrototypeOf ||
@@ -17,7 +17,7 @@ System.register(["../common/basePage", "../common/decorator", "./components/logo
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var basePage_1, decorator_1, logo_1, HomePage;
+    var basePage_1, decorator_1, logo_1, mainSlider_1, HomePage;
     return {
         setters: [
             function (basePage_1_1) {
@@ -28,6 +28,9 @@ System.register(["../common/basePage", "../common/decorator", "./components/logo
             },
             function (logo_1_1) {
                 logo_1 = logo_1_1;
+            },
+            function (mainSlider_1_1) {
+                mainSlider_1 = mainSlider_1_1;
             }
         ],
         execute: function () {
@@ -37,7 +40,14 @@ System.register(["../common/basePage", "../common/decorator", "./components/logo
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 HomePage.prototype.init = function () {
+                    var slideData = [
+                        { photo: "/resources/images/iphone1.png", title: "Lorem Ipsum is simply", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+                        { photo: "https://d3nevzfk7ii3be.cloudfront.net/igi/MqGZWCWTTRYMR5a5.large", title: "Lorem Ipsum is simply1", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+                        { photo: "https://d3nevzfk7ii3be.cloudfront.net/igi/ipv5OG2NckM3DfE2.large", title: "Lorem Ipsum is simply2", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+                        { photo: "https://i1.wp.com/asiajin.com/blog/wp-content/uploads/2011/10/iphone-4s.png?resize=460%2C315", title: "Lorem Ipsum is simply3", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." }
+                    ];
                     this.addControl(new logo_1.Logo(".header", "Prechu"));
+                    this.addControl(new mainSlider_1.MainSlider(".content", slideData));
                 };
                 HomePage = __decorate([
                     decorator_1.page({
