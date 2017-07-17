@@ -1,7 +1,7 @@
-System.register(["../common/enum", "../common/helpers/domHelper", "../common/connector", "../common/const"], function (exports_1, context_1) {
+System.register(["../common/enum", "../common/helpers/domHelper", "../common/connector", "../common/const", "../common/helpers/compileHelper"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var enum_1, domHelper_1, connector_1, const_1, BasePage;
+    var enum_1, domHelper_1, connector_1, const_1, compileHelper_1, BasePage;
     return {
         setters: [
             function (enum_1_1) {
@@ -15,16 +15,23 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
             },
             function (const_1_1) {
                 const_1 = const_1_1;
+            },
+            function (compileHelper_1_1) {
+                compileHelper_1 = compileHelper_1_1;
             }
         ],
         execute: function () {
             BasePage = (function () {
-                function BasePage() {
+                function BasePage(renderTo) {
+                    if (renderTo === void 0) { renderTo = "body"; }
+                    this.model = null;
                     this.title = "";
                     this.renderTo = "body";
                     this.controls = [];
                     this.renderMode = enum_1.RenderMode.Append;
                     this.dom = null;
+                    this.html = "";
+                    this.renderTo = renderTo;
                     this.connector = connector_1.ConnectorFactory.create();
                     this.init();
                 }
@@ -38,23 +45,38 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
                 });
                 BasePage.prototype.init = function () {
                 };
+                BasePage.prototype.addControl = function (control) {
+                    this.controls.push(control);
+                };
                 BasePage.prototype.render = function (renderTo) {
                     if (renderTo === void 0) { renderTo = "body"; }
-                    this.renderTo = renderTo;
+                    if (!String.isNullOrWhiteSpace(renderTo)) {
+                        this.renderTo = renderTo;
+                    }
                     var self = this;
                     this.getHtml(self.templateUrl).then(function (html) {
                         self.onHtmlReady(html);
                     });
                 };
+                BasePage.prototype.onRendering = function () { };
                 BasePage.prototype.onHtmlReady = function (html) {
-                    this.dom = window.jquery(html);
+                    this.html = html;
+                    this.onRendering();
+                    this.compileHtml();
+                    this.dom = window.jquery(this.html);
                     domHelper_1.default.append(this.renderTo, this.dom);
-                    this.onRenderCompleted();
+                    this.controls.forEach(function (item) {
+                        item.render(item.renderTo);
+                    });
+                    this.onRendered();
+                };
+                BasePage.prototype.compileHtml = function () {
+                    this.html = compileHelper_1.default.compile(this.html, this.model);
                 };
                 BasePage.prototype.getHtml = function (templateUrl) {
                     return this.connector.get(templateUrl);
                 };
-                BasePage.prototype.onRenderCompleted = function () { };
+                BasePage.prototype.onRendered = function () { };
                 BasePage.prototype.bindEvent = function (selector, eventName, handler) {
                     window.jquery(this.dom).find(selector).bind(eventName, handler);
                 };

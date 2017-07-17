@@ -1,4 +1,4 @@
-System.register(["../common/basePage", "../common/decorator", "./components/logo"], function (exports_1, context_1) {
+System.register(["../../common/basePage", "../../common/decorator", "./logoModel"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = Object.setPrototypeOf ||
@@ -16,8 +16,11 @@ System.register(["../common/basePage", "../common/decorator", "./components/logo
         else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
+    var __metadata = (this && this.__metadata) || function (k, v) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
     var __moduleName = context_1 && context_1.id;
-    var basePage_1, decorator_1, logo_1, HomePage;
+    var basePage_1, decorator_1, logoModel_1, Logo;
     return {
         setters: [
             function (basePage_1_1) {
@@ -26,28 +29,30 @@ System.register(["../common/basePage", "../common/decorator", "./components/logo
             function (decorator_1_1) {
                 decorator_1 = decorator_1_1;
             },
-            function (logo_1_1) {
-                logo_1 = logo_1_1;
+            function (logoModel_1_1) {
+                logoModel_1 = logoModel_1_1;
             }
         ],
         execute: function () {
-            HomePage = (function (_super) {
-                __extends(HomePage, _super);
-                function HomePage() {
-                    return _super !== null && _super.apply(this, arguments) || this;
+            Logo = (function (_super) {
+                __extends(Logo, _super);
+                function Logo(renderTo, text) {
+                    if (renderTo === void 0) { renderTo = ""; }
+                    if (text === void 0) { text = ""; }
+                    var _this = _super.call(this, renderTo) || this;
+                    _this.model = new logoModel_1.LogoModel(text);
+                    return _this;
                 }
-                HomePage.prototype.init = function () {
-                    this.addControl(new logo_1.Logo(".header", "Prechu"));
-                };
-                HomePage = __decorate([
+                Logo = __decorate([
                     decorator_1.page({
-                        templateUrl: "/src/pages/homePage.html"
-                    })
-                ], HomePage);
-                return HomePage;
+                        templateUrl: "/src/pages/components/logo.html"
+                    }),
+                    __metadata("design:paramtypes", [String, String])
+                ], Logo);
+                return Logo;
             }(basePage_1.BasePage));
-            exports_1("HomePage", HomePage);
+            exports_1("Logo", Logo);
         }
     };
 });
-//# sourceMappingURL=homePage.js.map
+//# sourceMappingURL=logo.js.map

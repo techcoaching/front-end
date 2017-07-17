@@ -184,6 +184,10 @@ String.toPascalCase = function (str) {
 String.prototype.toPascalCase = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
+String.replace = function (token, val) {
+    var reg = new RegExp(token, "gm");
+    return this.replace(reg, val);
+}
 /*
 Format the string. Using String.Format("{0}-{1}","1","2")="1-2"
 */
@@ -442,7 +446,7 @@ Date.prototype.format = function (mask, utc) {
                 return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
             });
         };
-    } ();
+    }();
 
     // Some common format strings
     dateFormat.masks = {
