@@ -12,14 +12,12 @@ export class MainSlider extends BasePage<MainSliderModel> {
     }
     @click({ selector: ".previous" })
     protected onPreviousClicked() {
-        console.log("onPreviousClicked");
         this.model.previous();
         this.render();
     }
 
     @click({ selector: ".next" })
     protected onNextClicked() {
-        console.log("onNextClicked");
         this.model.next();
         this.render();
     }

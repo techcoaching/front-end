@@ -27,7 +27,7 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
             BasePage = (function () {
                 function BasePage(renderTo) {
                     if (renderTo === void 0) { renderTo = "body"; }
-                    this.tempObj = { name: "test" };
+                    this.myName = "this is temp name";
                     this.title = "";
                     this.renderTo = "body";
                     this.controls = [];
@@ -38,9 +38,6 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
                     this.connector = connector_1.ConnectorFactory.create();
                     this.init();
                 }
-                BasePage.prototype.getModel = function () {
-                    return this.model;
-                };
                 Object.defineProperty(BasePage.prototype, "events", {
                     get: function () {
                         var meta = window.Reflect.getMetadata(const_1.Const.DecoratorKey, this.constructor) || {};
@@ -90,7 +87,9 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
                     var self = this;
                     console.log("registered events:", events);
                     events.forEach(function (event) {
-                        self.bindEvent(event.selector, event.name, event.handler);
+                        self.bindEvent(event.selector, event.name, function () {
+                            self[event.handler]();
+                        });
                     });
                 };
                 BasePage.prototype.compileHtml = function () {

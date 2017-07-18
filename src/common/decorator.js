@@ -11,11 +11,10 @@ System.register(["./const", "./helpers/objectHelper", "./event"], function (expo
     exports_1("page", page);
     function click(option) {
         return function (target, propertyKey, descriptor) {
+            var originMethod = descriptor.value;
             var meta = window.Reflect.getMetadata(const_1.Const.DecoratorKey, target.constructor) || {};
             var events = meta["events"] || new event_1.Events();
-            events.add(new event_1.Event("click", option.selector, function () {
-                target[propertyKey].apply(target);
-            }));
+            events.add(new event_1.Event("click", option.selector, propertyKey));
             meta["events"] = events;
             window.Reflect.defineMetadata(const_1.Const.DecoratorKey, meta, target.constructor);
         };

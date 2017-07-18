@@ -6,9 +6,14 @@ import { Const } from "../common/const";
 import htmlHelper from "../common/helpers/compileHelper";
 import { Events, Event } from "./event";
 
-export class BasePage<TModel> {
-    public model: any;
-    public tempObj:any={name:"test"};
+
+export interface IBasePage {
+    myName: string;
+}
+
+export class BasePage<TModel> implements IBasePage {
+    public myName: string = "this is temp name";
+    public model: TModel;
     public title: string = "";
     public renderTo: string = "body";
     public controls: Array<any> = [];
@@ -20,9 +25,6 @@ export class BasePage<TModel> {
         this.renderTo = renderTo;
         this.connector = ConnectorFactory.create();
         this.init();
-    }
-    public getModel(): any {
-        return this.model;
     }
     public get events(): Events {
         let meta = window.Reflect.getMetadata(Const.DecoratorKey, this.constructor) || {};
@@ -65,7 +67,9 @@ export class BasePage<TModel> {
 
         console.log("registered events:", events);
         events.forEach((event: Event) => {
-            self.bindEvent(event.selector, event.name, event.handler);
+            self.bindEvent(event.selector, event.name, function(){
+                self[event.handler]();
+            });
         });
     }
     private compileHtml() {
