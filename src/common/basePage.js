@@ -59,11 +59,13 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
                 BasePage.prototype.addControl = function (control) {
                     this.controls.push(control);
                 };
-                BasePage.prototype.render = function (renderTo) {
+                BasePage.prototype.render = function (renderTo, renderMode) {
                     if (renderTo === void 0) { renderTo = "body"; }
+                    if (renderMode === void 0) { renderMode = enum_1.RenderMode.Append; }
                     if (!String.isNullOrWhiteSpace(renderTo)) {
                         this.renderTo = renderTo;
                     }
+                    this.renderMode = renderMode;
                     var self = this;
                     this.getHtml(self.templateUrl).then(function (html) {
                         self.onHtmlReady(html);
@@ -75,7 +77,7 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
                     this.onRendering();
                     this.compileHtml();
                     this.dom = window.jquery(this.html);
-                    domHelper_1.default.append(this.renderTo, this.dom);
+                    domHelper_1.default.render(this.renderTo, this.dom, this.renderMode);
                     this.controls.forEach(function (item) {
                         item.render(item.renderTo);
                     });

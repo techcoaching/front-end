@@ -1,7 +1,7 @@
 export class MainSliderModel {
     private items: Array<any> = [];
     private currentIndex: number = 0;
-    private currentItem: any = null;
+    public currentItem: any = null;
     constructor(items: Array<any> = []) {
         this.items = items;
         if (this.items.length > 0) {

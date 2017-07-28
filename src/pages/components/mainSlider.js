@@ -1,4 +1,4 @@
-System.register(["../../common/basePage", "../../common/decorator", "./mainSliderModel"], function (exports_1, context_1) {
+System.register(["../../common/basePage", "../../common/decorator", "./mainSliderModel", "../../common/enum"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = Object.setPrototypeOf ||
@@ -20,7 +20,7 @@ System.register(["../../common/basePage", "../../common/decorator", "./mainSlide
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var __moduleName = context_1 && context_1.id;
-    var basePage_1, decorator_1, mainSliderModel_1, MainSlider;
+    var basePage_1, decorator_1, mainSliderModel_1, enum_1, MainSlider;
     return {
         setters: [
             function (basePage_1_1) {
@@ -31,6 +31,9 @@ System.register(["../../common/basePage", "../../common/decorator", "./mainSlide
             },
             function (mainSliderModel_1_1) {
                 mainSliderModel_1 = mainSliderModel_1_1;
+            },
+            function (enum_1_1) {
+                enum_1 = enum_1_1;
             }
         ],
         execute: function () {
@@ -43,14 +46,15 @@ System.register(["../../common/basePage", "../../common/decorator", "./mainSlide
                     return _this;
                 }
                 MainSlider.prototype.onPreviousClicked = function () {
-                    console.log("onPreviousClicked");
                     this.model.previous();
-                    this.render();
+                    this.render(this.renderTo, enum_1.RenderMode.Replace);
                 };
                 MainSlider.prototype.onNextClicked = function () {
-                    console.log("onNextClicked");
                     this.model.next();
-                    this.render();
+                    this.render(this.renderTo, enum_1.RenderMode.Replace);
+                };
+                MainSlider.prototype.onSignUpClicked = function () {
+                    console.log("On signup clicked", this.model.currentItem);
                 };
                 __decorate([
                     decorator_1.click({ selector: ".previous" }),
@@ -64,6 +68,12 @@ System.register(["../../common/basePage", "../../common/decorator", "./mainSlide
                     __metadata("design:paramtypes", []),
                     __metadata("design:returntype", void 0)
                 ], MainSlider.prototype, "onNextClicked", null);
+                __decorate([
+                    decorator_1.click({ selector: ".button-signupnow" }),
+                    __metadata("design:type", Function),
+                    __metadata("design:paramtypes", []),
+                    __metadata("design:returntype", void 0)
+                ], MainSlider.prototype, "onSignUpClicked", null);
                 MainSlider = __decorate([
                     decorator_1.page({
                         templateUrl: "/src/pages/components/mainSlider.html"

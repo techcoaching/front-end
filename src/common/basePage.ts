@@ -39,10 +39,11 @@ export class BasePage<TModel> implements IBasePage {
     public addControl(control) {
         this.controls.push(control);
     }
-    public render(renderTo: string = "body") {
+    public render(renderTo: string = "body", renderMode: RenderMode = RenderMode.Append) {
         if (!String.isNullOrWhiteSpace(renderTo)) {
             this.renderTo = renderTo;
         }
+        this.renderMode = renderMode;
         var self = this;
         this.getHtml(self.templateUrl).then(function (html) {
             self.onHtmlReady(html);
@@ -54,7 +55,7 @@ export class BasePage<TModel> implements IBasePage {
         this.onRendering();
         this.compileHtml();
         this.dom = window.jquery(this.html);
-        domHelper.append(this.renderTo, this.dom);
+        domHelper.render(this.renderTo, this.dom, this.renderMode);
         this.controls.forEach((item) => {
             item.render(item.renderTo);
         });
@@ -67,7 +68,7 @@ export class BasePage<TModel> implements IBasePage {
 
         console.log("registered events:", events);
         events.forEach((event: Event) => {
-            self.bindEvent(event.selector, event.name, function(){
+            self.bindEvent(event.selector, event.name, function () {
                 self[event.handler]();
             });
         });
