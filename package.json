@@ -8,7 +8,9 @@
     "build": "npm run tsc",
     "tsc": "tsc",
     "lite": "npm run lite-server",
-    "lite-server": "lite-server"
+    "lite-server": "lite-server",
+    "sass":"node-sass --include-path sass sass/themes/default/index.scss resources/css/style_default.css",
+    "sass_blue":"node-sass --include-path sass sass/themes/blue/index.scss resources/css/style_blue.css"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "dependencies": {
     "core-js": "^2.4.1",
     "lite-server": "^2.3.0",
+    "node-sass": "^4.5.3",
     "reflect-metadata": "^0.1.10",
     "systemjs": "^0.20.15",
     "typescript": "^2.4.1",
