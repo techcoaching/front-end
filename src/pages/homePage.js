@@ -1,4 +1,4 @@
-System.register(["../common/basePage", "../common/decorator", "./components/logo", "./components/mainSlider"], function (exports_1, context_1) {
+System.register(["../common/basePage", "../common/decorator", "../common/route/routeNavigator", "./components/logo", "./components/mainSlider"], function (exports_1, context_1) {
     "use strict";
     var __extends = (this && this.__extends) || (function () {
         var extendStatics = Object.setPrototypeOf ||
@@ -16,8 +16,11 @@ System.register(["../common/basePage", "../common/decorator", "./components/logo
         else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
+    var __metadata = (this && this.__metadata) || function (k, v) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
     var __moduleName = context_1 && context_1.id;
-    var basePage_1, decorator_1, logo_1, mainSlider_1, HomePage;
+    var basePage_1, decorator_1, routeNavigator_1, decorator_2, logo_1, mainSlider_1, HomePage;
     return {
         setters: [
             function (basePage_1_1) {
@@ -25,6 +28,10 @@ System.register(["../common/basePage", "../common/decorator", "./components/logo
             },
             function (decorator_1_1) {
                 decorator_1 = decorator_1_1;
+                decorator_2 = decorator_1_1;
+            },
+            function (routeNavigator_1_1) {
+                routeNavigator_1 = routeNavigator_1_1;
             },
             function (logo_1_1) {
                 logo_1 = logo_1_1;
@@ -49,8 +56,17 @@ System.register(["../common/basePage", "../common/decorator", "./components/logo
                     this.addControl(new logo_1.Logo(".header", "Prechu"));
                     this.addControl(new mainSlider_1.MainSlider(".content", slideData));
                 };
+                HomePage.prototype.onPreviousClicked = function () {
+                    routeNavigator_1.RouteNavigator.navigate("/test");
+                };
+                __decorate([
+                    decorator_1.click({ selector: ".test-page" }),
+                    __metadata("design:type", Function),
+                    __metadata("design:paramtypes", []),
+                    __metadata("design:returntype", void 0)
+                ], HomePage.prototype, "onPreviousClicked", null);
                 HomePage = __decorate([
-                    decorator_1.page({
+                    decorator_2.page({
                         templateUrl: "/src/pages/homePage.html"
                     })
                 ], HomePage);

@@ -1,7 +1,9 @@
 import { BasePage } from "../common/basePage";
+import { click } from "../common/decorator";
+import { RouteNavigator } from "../common/route/routeNavigator";
 import { page } from "../common/decorator";
 import { Logo } from "./components/logo";
-import {MainSlider} from "./components/mainSlider";
+import { MainSlider } from "./components/mainSlider";
 
 @page({
     templateUrl: "/src/pages/homePage.html"
@@ -15,7 +17,11 @@ export class HomePage extends BasePage<any> {
             { photo: "https://i1.wp.com/asiajin.com/blog/wp-content/uploads/2011/10/iphone-4s.png?resize=460%2C315", title: "Lorem Ipsum is simply3", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." }
         ];
 
-        this.addControl(new Logo(".header","Prechu"));
+        this.addControl(new Logo(".header", "Prechu"));
         this.addControl(new MainSlider(".content", slideData));
+    }
+    @click({ selector: ".test-page" })
+    protected onPreviousClicked() {
+        RouteNavigator.navigate("/test");
     }
 }
