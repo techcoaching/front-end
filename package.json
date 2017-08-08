@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run tsc",
     "tsc": "tsc",
-    "lite": "npm run lite-server",
+    "lite": "npm run lite-server -c lite-config.json",
     "lite-server": "lite-server",
     "sass":"node-sass --include-path sass sass/themes/default/index.scss resources/css/style_default.css",
     "sass_blue":"node-sass --include-path sass sass/themes/blue/index.scss resources/css/style_blue.css"
