@@ -29,6 +29,14 @@ Object.toArray = function (obj) {
     }
     return arr;
 }
+Function.getArguments = function (fnc) {
+    var args = fnc.toString().match(/function\s.*?\(([^)]*)\)/)[1];
+    return args.split(',').map(function (arg) {
+        return arg.replace(/\/\*.*\*\//, '').trim();
+    }).filter(function (arg) {
+        return arg;
+    });
+}
 Sys = {
     extend: function (dest, source) {
         var result = Object.clone(dest);

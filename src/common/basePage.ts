@@ -90,7 +90,7 @@ export class BasePage<TModel> implements IBasePage {
         let params = {};
         Object.toArray(dom.attributes).forEach((attr: any) => {
             if (!componentHelper.isValidAttribute(attr.name)) { return; }
-            params[attr.name] = attr.value;
+            params[attr.name.replace(Const.ComponentAttrPrefix, "")] = attr.value;
         });
         return params;
     }

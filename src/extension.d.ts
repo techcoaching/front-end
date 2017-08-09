@@ -29,6 +29,10 @@ interface Array<T> {
     merge(items: Array<any>, predicate: any): Array<any>;
 }
 
-interface ObjectConstructor{
-    toArray(obj: any):Array<any>;
+interface ObjectConstructor {
+    toArray(obj: any): Array<any>;
+}
+
+interface FunctionConstructor {
+    getArguments(fnc): Array<string>;
 }
