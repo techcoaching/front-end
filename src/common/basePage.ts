@@ -5,7 +5,8 @@ import { IConnector } from "../common/iconnector";
 import { Const } from "../common/const";
 import htmlHelper from "../common/helpers/compileHelper";
 import { Events, Event } from "./event";
-
+import componentHelper from "./helpers/componentHelper";
+import { ComponentManager } from "./componentManager";
 
 export interface IBasePage {
     myName: string;
@@ -56,11 +57,42 @@ export class BasePage<TModel> implements IBasePage {
         this.compileHtml();
         this.dom = window.jquery(this.html);
         domHelper.render(this.renderTo, this.dom, this.renderMode);
+        this.loadChildsFromTemplate();
         this.controls.forEach((item) => {
             item.render(item.renderTo);
         });
         this.onRendered();
         this.bindEvents();
+    }
+    private loadChildsFromTemplate(): void {
+        let self = this;
+        //let components = this.dom.children(String.format("[tagName='{0}']", Const.ComponentPrefix))
+        let components: Array<any> = this.dom.find("*").filter((index, item) => {
+            return /^comp\-/i.test(item.nodeName);
+        });
+        if (!components.length || components.length <= 0) { return; }
+        for (let index = 0; index < components.length; index++) {
+            let component = components[index];
+            if (String.isNullOrWhiteSpace(window.jquery(component).attr("id"))) {
+                window.jquery(component).attr("id", String.format("comp_" + Guid.create()))
+            }
+            self.createChildFromDom(component);
+        }
+    }
+    private createChildFromDom(component: any) {
+        let tagName = window.jquery(component).prop("tagName");
+        let id = window.jquery(component).attr("id");
+        let params = this.getParamsFromDom(component);
+        let compInstance = ComponentManager.create(tagName, id, params);
+        this.addControl(compInstance);
+    }
+    private getParamsFromDom(dom: any) {
+        let params = {};
+        Object.toArray(dom.attributes).forEach((attr: any) => {
+            if (!componentHelper.isValidAttribute(attr.name)) { return; }
+            params[attr.name] = attr.value;
+        });
+        return params;
     }
     private bindEvents() {
         let events: Array<Event> = this.events.getEvents();

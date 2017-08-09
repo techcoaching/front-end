@@ -38,13 +38,14 @@ System.register(["../../common/basePage", "../../common/decorator", "./logoModel
                 __extends(Logo, _super);
                 function Logo(renderTo, text) {
                     if (renderTo === void 0) { renderTo = ""; }
-                    if (text === void 0) { text = ""; }
+                    if (text === void 0) { text = "empty text"; }
                     var _this = _super.call(this, renderTo) || this;
                     _this.model = new logoModel_1.LogoModel(text);
                     return _this;
                 }
                 Logo = __decorate([
                     decorator_1.page({
+                        selector: "comp-branch",
                         templateUrl: "/src/pages/components/logo.html"
                     }),
                     __metadata("design:paramtypes", [String, String])

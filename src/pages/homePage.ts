@@ -16,8 +16,8 @@ export class HomePage extends BasePage<any> {
             { photo: "https://d3nevzfk7ii3be.cloudfront.net/igi/ipv5OG2NckM3DfE2.large", title: "Lorem Ipsum is simply2", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
             { photo: "https://i1.wp.com/asiajin.com/blog/wp-content/uploads/2011/10/iphone-4s.png?resize=460%2C315", title: "Lorem Ipsum is simply3", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." }
         ];
-
-        this.addControl(new Logo(".header", "Prechu"));
+        new Logo(".header", "Prechu")
+        //this.addControl(new Logo(".header", "Prechu"));
         this.addControl(new MainSlider(".content", slideData));
     }
     @click({ selector: ".test-page" })

@@ -1,7 +1,7 @@
-System.register(["../common/enum", "../common/helpers/domHelper", "../common/connector", "../common/const", "../common/helpers/compileHelper", "./event"], function (exports_1, context_1) {
+System.register(["../common/enum", "../common/helpers/domHelper", "../common/connector", "../common/const", "../common/helpers/compileHelper", "./event", "./helpers/componentHelper", "./componentManager"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var enum_1, domHelper_1, connector_1, const_1, compileHelper_1, event_1, BasePage;
+    var enum_1, domHelper_1, connector_1, const_1, compileHelper_1, event_1, componentHelper_1, componentManager_1, BasePage;
     return {
         setters: [
             function (enum_1_1) {
@@ -21,6 +21,12 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
             },
             function (event_1_1) {
                 event_1 = event_1_1;
+            },
+            function (componentHelper_1_1) {
+                componentHelper_1 = componentHelper_1_1;
+            },
+            function (componentManager_1_1) {
+                componentManager_1 = componentManager_1_1;
             }
         ],
         execute: function () {
@@ -78,11 +84,45 @@ System.register(["../common/enum", "../common/helpers/domHelper", "../common/con
                     this.compileHtml();
                     this.dom = window.jquery(this.html);
                     domHelper_1.default.render(this.renderTo, this.dom, this.renderMode);
+                    this.loadChildsFromTemplate();
                     this.controls.forEach(function (item) {
                         item.render(item.renderTo);
                     });
                     this.onRendered();
                     this.bindEvents();
+                };
+                BasePage.prototype.loadChildsFromTemplate = function () {
+                    var self = this;
+                    var components = this.dom.find("*").filter(function (index, item) {
+                        return /^comp\-/i.test(item.nodeName);
+                    });
+                    if (!components.length || components.length <= 0) {
+                        return;
+                    }
+                    for (var index = 0; index < components.length; index++) {
+                        var component = components[index];
+                        if (String.isNullOrWhiteSpace(window.jquery(component).attr("id"))) {
+                            window.jquery(component).attr("id", String.format("comp_" + Guid.create()));
+                        }
+                        self.createChildFromDom(component);
+                    }
+                };
+                BasePage.prototype.createChildFromDom = function (component) {
+                    var tagName = window.jquery(component).prop("tagName");
+                    var id = window.jquery(component).attr("id");
+                    var params = this.getParamsFromDom(component);
+                    var compInstance = componentManager_1.ComponentManager.create(tagName, id, params);
+                    this.addControl(compInstance);
+                };
+                BasePage.prototype.getParamsFromDom = function (dom) {
+                    var params = {};
+                    Object.toArray(dom.attributes).forEach(function (attr) {
+                        if (!componentHelper_1.default.isValidAttribute(attr.name)) {
+                            return;
+                        }
+                        params[attr.name] = attr.value;
+                    });
+                    return params;
                 };
                 BasePage.prototype.bindEvents = function () {
                     var events = this.events.getEvents();

@@ -21,6 +21,14 @@ Object.clone = function (instance) {
     //console.log("data after clone:", emptyFn);
     return emptyFn;
 }
+Object.toArray = function (obj) {
+    var arr = [];
+    if (!obj) { return; }
+    for (var index = 0; index < obj.length; index++) {
+        arr.push(obj[index]);
+    }
+    return arr;
+}
 Sys = {
     extend: function (dest, source) {
         var result = Object.clone(dest);
@@ -537,3 +545,14 @@ Date.prototype.sameDay = function (d) {
         && this.getDate() === d.getDate()
         && this.getMonth() === d.getMonth();
 }
+
+function Guid() { }
+Guid.create = function () {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+}
+

@@ -1,4 +1,4 @@
-System.register(["./const", "./helpers/objectHelper", "./event"], function (exports_1, context_1) {
+System.register(["./const", "./helpers/objectHelper", "./event", "./componentManager"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function page(options) {
@@ -6,6 +6,9 @@ System.register(["./const", "./helpers/objectHelper", "./event"], function (expo
             var meta = window.Reflect.getMetadata(const_1.Const.DecoratorKey, ctor) || {};
             meta = objectHelper_1.default.apply(options, meta);
             window.Reflect.defineMetadata(const_1.Const.DecoratorKey, meta, ctor);
+            if (!String.isNullOrWhiteSpace(options.selector)) {
+                componentManager_1.ComponentManager.register(options.selector, ctor);
+            }
         };
     }
     exports_1("page", page);
@@ -20,7 +23,7 @@ System.register(["./const", "./helpers/objectHelper", "./event"], function (expo
         };
     }
     exports_1("click", click);
-    var const_1, objectHelper_1, event_1;
+    var const_1, objectHelper_1, event_1, componentManager_1;
     return {
         setters: [
             function (const_1_1) {
@@ -31,6 +34,9 @@ System.register(["./const", "./helpers/objectHelper", "./event"], function (expo
             },
             function (event_1_1) {
                 event_1 = event_1_1;
+            },
+            function (componentManager_1_1) {
+                componentManager_1 = componentManager_1_1;
             }
         ],
         execute: function () {
