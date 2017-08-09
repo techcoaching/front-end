@@ -44,6 +44,7 @@ System.register(["../../common/basePage", "../../common/decorator", "./logoModel
                     return _this;
                 }
                 Logo = __decorate([
+                    decorator_1.inline,
                     decorator_1.page({
                         selector: "comp-branch",
                         templateUrl: "/src/pages/components/logo.html"

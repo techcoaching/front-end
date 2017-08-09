@@ -1,7 +1,8 @@
 import { BasePage } from "../../common/basePage";
-import { page } from "../../common/decorator";
+import { page, inline } from "../../common/decorator";
 import { LogoModel } from "./logoModel";
 
+@inline
 @page({
     selector: "comp-branch",
     templateUrl: "/src/pages/components/logo.html"
